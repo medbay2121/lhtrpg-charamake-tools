@@ -12,7 +12,7 @@ exports.char_data_bake = function(send_data){
         str_output += "◯ 戦闘の基本 \\n";
 
         //console.log(data["abl_hit"] + " ：命中値");
-        str_output += data["abl_hit"] + " ：命中値 \\n";
+        str_output += data["abl_hit"] + " ： 命中値 \\n";
 
         //console.log("2+" + data["abl_avoid"] + " 回避（ヘイトアンダー）");
         str_output += "2+" + data["abl_avoid"] + " 【回避】（ヘイトアンダー） \\n";

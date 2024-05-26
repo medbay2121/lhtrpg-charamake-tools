@@ -15,16 +15,16 @@ exports.char_data_bake = function(send_data){
         str_output += data["abl_hit"] + " ：命中値 \\n";
 
         //console.log("2+" + data["abl_avoid"] + " 回避（ヘイトアンダー）");
-        str_output += "2+" + data["abl_avoid"] + " 回避（ヘイトアンダー） \\n";
+        str_output += "2+" + data["abl_avoid"] + " 【回避】（ヘイトアンダー） \\n";
 
         //console.log("2+" + data["abl_resist"] + " 抵抗（ヘイトアンダー）");
-        str_output += "2+" + data["abl_resist"] + " 抵抗（ヘイトアンダー） \\n";
+        str_output += "2+" + data["abl_resist"] + " 【抵抗】（ヘイトアンダー） \\n";
 
         //console.log(data["abl_avoid"] + " 回避（ヘイトトップ）");
-        str_output += data["abl_avoid"] + " 回避（ヘイトトップ） \\n";
+        str_output += data["abl_avoid"] + " 【回避】（ヘイトトップ） \\n";
 
         //console.log(data["abl_resist"] + " 抵抗（ヘイトトップ）");
-        str_output += data["abl_resist"] + " 抵抗（ヘイトトップ） \\n";
+        str_output += data["abl_resist"] + " 【抵抗】（ヘイトトップ） \\n";
 
 
         let timing_dict = {
@@ -48,15 +48,15 @@ exports.char_data_bake = function(send_data){
         for (let i_num = 0; i_num < data["skills"].length; i_num++) {
         // タイミングの名前書くやつ
             try {
-                for (let key in timingDict) {
+                for (let key in timing_dict) {
                     if (key === data["skills"][i_num]["timing"]) {
-                        timingDict[key] += 1;
+                        timing_dict[key] += 1;
                     }
                 }
             
-                if (timingDict[data["skills"][i_num]["timing"]] === 1) {
+                if (timing_dict[data["skills"][i_num]["timing"]] === 1) {
                     //console.log("◯ ", data["skills"][i_num]["timing"]);
-                    str_output += "◯ " + String(data["skills"][i_num]["timing"]);
+                    str_output += "\\n◯ " + String(data["skills"][i_num]["timing"]);
                 }
             }
 
@@ -113,14 +113,14 @@ exports.char_data_bake = function(send_data){
                         // 攻撃の場合は命中を反映
                         if (data["skills"][i_num]["roll"] !== "判定なし") {
                             // console.log(data["abl_hit"] + " ：命中値");
-                            str_output += "\\n" + data["abl_hit"] + " ：命中値";
+                            str_output += "\\n" + data["abl_hit"] + "　：命中値";
                             // console.log(output_new_one + " 《" + data["skills"][i_num]["name"] + "》ダメージ");
-                            str_output += "\\n" + output_new_one + "《" + data["skills"][i_num]["name"] + "》ダメージ";
+                            str_output += "\\n" + output_new_one + "　《" + data["skills"][i_num]["name"] + "》ダメージ";
                         } else {
 
                         //回復の時（攻撃以外）は名称変更
                             // console.log(output_new_one + " 《" + data["skills"][i_num]["name"] + "》");
-                            str_output += "\\n" + output_new_one + "《" + data["skills"][i_num]["name"] + "》";
+                            str_output += "\\n" + output_new_one + "　《" + data["skills"][i_num]["name"] + "》";
                         }
 
                         //アサルトスタンス時のダメージ
@@ -177,8 +177,35 @@ exports.char_data_bake = function(send_data){
             }
             catch {
                 var a = 1;
-            }
+            }   
         }
+        //console.log(" ◯ 各種判定")
+        str_output += "\\n\\n ◯ 各種判定 \\n";
+
+        //console.log(data["abl_motion"] + " 運動値")
+        str_output += data["abl_motion"] + " 運動値\\n";
+
+        //console.log(data["abl_durability"] + " 耐久値")
+        str_output += data["abl_durability"] + " 耐久値\\n";
+
+        //console.log(data["abl_dismantle"] + " 解除値")
+        str_output += data["abl_dismantle"] + " 解除値\\n";
+
+        //console.log(data["abl_operate"] + " 操作値")
+        str_output += data["abl_operate"] + " 操作値\\n";
+
+        //console.log(data["abl_sense"] + " 知覚値")
+        str_output += data["abl_sense"] + " 知覚値\\n";
+
+        //console.log(data["abl_negotiate"] + " 交渉値")
+        str_output += data["abl_negotiate"] + " 交渉値\\n";
+
+        //console.log(data["abl_knowledge"] + " 知識値")
+        str_output += data["abl_knowledge"] + " 知識値\\n";
+
+        //console.log(data["abl_analyze"] + " 解析値")
+        str_output += data["abl_analyze"] + " 解析値\\n";
+
 
         let string_with_newline = str_output;
         return `{"kind":"character","data":{"name":"${data.name}","initiative":${(data.action + 0.1)},"externalUrl":"${data.sheet_url}","iconUrl":"","commands":"${string_with_newline}","status":[{"label":"HP","value":${data.max_hitpoint},"max":${data.max_hitpoint}},{"label":"ヘイト","value":0,"max":0},{"label":"疲労","value":0,"max":0},{"label":"因果力","value":${data.effect},"max":0},{"label":"障壁","value":0,"max":0}],"params":[{"label":"STR","value":"${data.str_value}"},{"label":"DEX","value":"${data.dex_value}"},{"label":"POW","value":"${data.pow_value}"},{"label":"INT","value":"${data.int_value}"},{"label":"攻撃力","value":"${data.physical_attack}"},{"label":"魔力","value":"${data.magic_attack}"},{"label":"回復力","value":"${data.heal_power}"},{"label":"物防","value":"${data.physical_defense}"},{"label":"魔防","value":"${data.magic_defense}"},{"label":"行動力","value":"${data.action}"},{"label":"移動力","value":"${data.move}"}]}}`;

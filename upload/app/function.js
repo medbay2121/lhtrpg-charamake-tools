@@ -1,0 +1,189 @@
+exports.char_data_bake = function(send_data){
+    const data = send_data;
+    let str_output = "";
+
+    try {
+
+        //ひたすらリコーディングするだけ
+
+
+        //console.log(" ");
+        //console.log("◯ 戦闘の基本");
+        str_output += "◯ 戦闘の基本 \\n";
+
+        //console.log(data["abl_hit"] + " ：命中値");
+        str_output += data["abl_hit"] + " ：命中値 \\n";
+
+        //console.log("2+" + data["abl_avoid"] + " 回避（ヘイトアンダー）");
+        str_output += "2+" + data["abl_avoid"] + " 回避（ヘイトアンダー） \\n";
+
+        //console.log("2+" + data["abl_resist"] + " 抵抗（ヘイトアンダー）");
+        str_output += "2+" + data["abl_resist"] + " 抵抗（ヘイトアンダー） \\n";
+
+        //console.log(data["abl_avoid"] + " 回避（ヘイトトップ）");
+        str_output += data["abl_avoid"] + " 回避（ヘイトトップ） \\n";
+
+        //console.log(data["abl_resist"] + " 抵抗（ヘイトトップ）");
+        str_output += data["abl_resist"] + " 抵抗（ヘイトトップ） \\n";
+
+
+        let timing_dict = {
+            "メジャー": 0,
+            "マイナー": 0,
+            "ムーブ": 0,
+            "イニシアチブ": 0,
+            "常時": 0,
+            "セットアップ": 0,
+            "プリプレイ": 0,
+            "本文": 0,
+        };
+          
+          // Initialize variables react, react_val, inv_flag, assult_flag, fixed_dam_val to 0
+        let react = 0;
+        let react_val = 0;
+        let inv_flag = 0;
+        let assult_flag = 0;
+        let fixed_dam_val = 0;
+
+        for (let i_num = 0; i_num < data["skills"].length; i_num++) {
+        // タイミングの名前書くやつ
+            try {
+                for (let key in timingDict) {
+                    if (key === data["skills"][i_num]["timing"]) {
+                        timingDict[key] += 1;
+                    }
+                }
+            
+                if (timingDict[data["skills"][i_num]["timing"]] === 1) {
+                    //console.log("◯ ", data["skills"][i_num]["timing"]);
+                    str_output += "◯ " + String(data["skills"][i_num]["timing"]);
+                }
+            }
+
+            catch {
+                //console.log("◯ その他");
+                str_output += "\\n◯ その他";
+            }
+
+            // 技能の処理
+            try {
+            //スキル名・技能のタイミング・効果の記述
+                str_output += "\\n\\n" + "《" + data["skills"][i_num]["name"] + "》[" + data["skills"][i_num]["timing"] + "] [ SR：" + data["skills"][i_num]["skill_rank"] + "/" + data["skills"][i_num]["skill_max_rank"] + " ] [ 射程：" + data["skills"][i_num]["range"] + "] " + data["skills"][i_num]["function"];
+
+                //メジャー技能処理
+                if (data["skills"][i_num]["timing"] == "メジャー") {
+
+                    //例外処理
+                    if (data["skills"][i_num]["name"] == "シールドスウィング") {
+                        //console.log(data["abl_hit"] + " ：命中値");
+                        str_output += "\\n" + data["abl_hit"] + " ：命中値";
+                        //console.log(data["hand1"]["physical_defense"] + "+" + data["skills"][i_num]["skill_rank"] + "D" + " ：《シールドスウィング》ダメージ");
+                        str_output += "\\n" + data["hand1"]["physical_defense"] + "+" + data["skills"][i_num]["skill_rank"] + "D" + " ：《シールドスウィング》ダメージ";
+                    } else if (data["skills"][i_num]["name"] == "ホーリーシールド") {
+                        //console.log(data["abl_hit"] + " ：命中値");
+                        str_output += "\\n" + data["abl_hit"] + " ：命中値";
+                        //console.log(data["hand1"]["magic_defense"] + "+" + data["skills"][i_num]["skill_rank"] + "D" + " ：《ホーリーシールド》ダメージ");
+                        str_output += "\\n" + data["hand1"]["magic_defense"] + "+" + data["skills"][i_num]["skill_rank"] + "D" + " ：《ホーリーシールド》ダメージ";
+                        //str(data["hand1"]["magic_defense"] + "+" + data["skills"][i_num]["skill_rank"] + "D" + " ：ホーリーシールドダメージ");
+
+                    } else {
+                    // ここから技能の一般化
+
+                        // "　］"で文字を区切る
+                        let test_slice1 = data["skills"][i_num]["function"].split("］");
+                        // "Ｄ"が含まれているやつを取り出す
+                        let strMatch = test_slice1.filter(x => x.includes("Ｄ"));
+                        // リストで入ってるのでstr型に落とす  ←  ここがカス
+                        let test_slice2 = strMatch[0];
+                        // "［"で前方を切り出す
+                        let test_slice3 = test_slice2.split("［");
+                        // "Ｄ"が含まれているやつを取り出す（２回目）
+                        let strMatch2 = test_slice3.filter(x => x.includes("Ｄ"));
+                        // リストで入ってるのでstr型に落とす  ←  ここもカス
+                        let test_slice4 = strMatch2[0];
+                        // カスコードの残骸。消すとわからなくなるから残せてる
+                        let outputStr = test_slice4;
+
+                        // 技能の技能値を反映
+                        let a = String(data["skills"][i_num]["skillRank"]);
+                        let output_new = outputStr.replace("ＳＲ", a);
+                        // 【】を{}に置換（チャパレで動くように）
+                        let output_new_one = output_new.replace("【", "{").replace("】", "}");
+
+                        // 攻撃の場合は命中を反映
+                        if (data["skills"][i_num]["roll"] !== "判定なし") {
+                            // console.log(data["abl_hit"] + " ：命中値");
+                            str_output += "\\n" + data["abl_hit"] + " ：命中値";
+                            // console.log(output_new_one + " 《" + data["skills"][i_num]["name"] + "》ダメージ");
+                            str_output += "\\n" + output_new_one + "《" + data["skills"][i_num]["name"] + "》ダメージ";
+                        } else {
+
+                        //回復の時（攻撃以外）は名称変更
+                            // console.log(output_new_one + " 《" + data["skills"][i_num]["name"] + "》");
+                            str_output += "\\n" + output_new_one + "《" + data["skills"][i_num]["name"] + "》";
+                        }
+
+                        //アサルトスタンス時のダメージ
+                        if (assult_flag === 1) {
+                            let output_new_second = output_new_one + "＋" + fixed_dam_val.toString();
+                            //console.log(output_new_second);
+                            str_output += "\\n" + output_new_second;
+                        }
+                    }  
+                }
+                else if (data["skills"][i_num]["name"] === "リアクティブマスタリー") {
+                    react = react + data["skills"][i_num]["skill_rank"];
+                }
+                else if (data["skills"][i_num]["name"] == "インヴォークリアクト"){
+                    inv_flag =inv_flag + 1
+                }
+                else if(data["skills"][i_num]["name"] == "ホワイトローブ・スタイル"){
+                    react_val = react_val + data["skills"][i_num]["skill_rank"] * 3
+                }
+                else if (data["skills"][i_num]["name"] == "リアクティブヒール") {
+                    react += 2;
+                
+                    if (react_val != 0) {
+                        //console.log(react_val + "+" + react + "D" + " リアクティブヒール回復量");
+                        str_output += "\\n" + react_val + "+" + react + "D" + " リアクティブヒール回復量";
+                    } else {
+                        //console.log(react + "D" + " リアクティブヒール回復量");
+                        str_output += "\\n" + react + "D" + " リアクティブヒール回復量";
+                    }
+                
+                    if (inv_flag == 1) {
+                        if (react_val != 0) {
+                            //console.log(react_val + "+" + "{魔力}+" + react + "D" + " リアクティブヒール回復量（インヴォーリアクト使用）");
+                            str_output += "\\n" + react_val + "+" + "{魔力}+" + react + "D" + " リアクティブヒール回復量（インヴォーリアクト使用）";
+                        } else {
+                            //console.log("{魔力}+" + react + "D" + " リアクティブヒール回復量（インヴォーリアクト使用）");
+                            str_output += "\\n" + "{魔力}+" + react + "D" + " リアクティブヒール回復量（インヴォーリアクト使用）";
+                        }
+                    }
+                }
+                else if(data["skills"][i_num]["name"] == "アサルト・スタンス"){
+                    fixed_dam_val = fixed_dam_val + data["skills"][i_num]["skill_rank"]*4
+                    assult_flag = 1
+                    str_output +=str("\\n"+fixed_dam_val)
+                }
+                else if(data["skills"][i_num]["name"] == "禊ぎの障壁"){
+                    //print("C({魔力}+{回復力}+15) 禊ぎの障壁付与障壁量")
+                    str_output +=str("\\n"+"C({魔力}+{回復力}+15) 禊ぎの障壁付与障壁量")
+                }
+                else if(data["skills"][i_num]["name"] == "ハートビートヒーリング"){
+                    //print("C({魔力}+{回復力}+15) 禊ぎの障壁付与障壁量")
+                    str_output +=str("\\n"+"C({魔力}+10) ハートビートヒーリング付与再生量")
+                }
+            }
+            catch {
+                var a = 1;
+            }
+        }
+
+        let string_with_newline = str_output;
+        return `{"kind":"character","data":{"name":"${data.name}","initiative":${(data.action + 0.1)},"externalUrl":"${data.sheet_url}","iconUrl":"","commands":"${string_with_newline}","status":[{"label":"HP","value":${data.max_hitpoint},"max":${data.max_hitpoint}},{"label":"ヘイト","value":0,"max":0},{"label":"疲労","value":0,"max":0},{"label":"因果力","value":${data.effect},"max":0},{"label":"障壁","value":0,"max":0}],"params":[{"label":"STR","value":"${data.str_value}"},{"label":"DEX","value":"${data.dex_value}"},{"label":"POW","value":"${data.pow_value}"},{"label":"INT","value":"${data.int_value}"},{"label":"攻撃力","value":"${data.physical_attack}"},{"label":"魔力","value":"${data.magic_attack}"},{"label":"回復力","value":"${data.heal_power}"},{"label":"物防","value":"${data.physical_defense}"},{"label":"魔防","value":"${data.magic_defense}"},{"label":"行動力","value":"${data.action}"},{"label":"移動力","value":"${data.move}"}]}}`;
+
+    } catch (error) {
+      console.error('Error fetching character data:', error);
+    }
+}

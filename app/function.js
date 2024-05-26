@@ -105,7 +105,7 @@ exports.char_data_bake = function(send_data){
                         let outputStr = test_slice4;
 
                         // 技能の技能値を反映
-                        let a = String(data["skills"][i_num]["skillRank"]);
+                        let a = String(data["skills"][i_num]["skill_rank"]);
                         let output_new = outputStr.replace("ＳＲ", a);
                         // 【】を{}に置換（チャパレで動くように）
                         let output_new_one = output_new.replace("【", "{").replace("】", "}");

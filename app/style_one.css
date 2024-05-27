@@ -9,7 +9,15 @@
     border: 2px solid #1fc03c; /* 枠線を設定 */
     border-radius: 8px; /* 角を丸める */
     background-color: #f9f9f9; /* 背景色を設定 */
-  }
+}
+
+.flex-container {
+    display: flex;
+    margin-bottom: 2.5rem; /* mb-10 */
+    gap: 0.5rem; /* Space between input and button */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+}
+
 .input-chara {
   flex-grow: 1;
   border-radius: 0.375rem; /* rounded-md */
@@ -31,28 +39,27 @@
 
 
   
-  @media screen and(max-width: 480px) {
-    /* style_one.css */
-    .borderedText {
-      font-family: 'Arial, sans-serif';
-      font-size: 15px;
-      line-height: 1.6;
-      color: #333;
-      margin: 0 0 1.5em 0;
-      padding: 10px;
-      border: 2px solid #1fc03c; /* 枠線を設定 */
-      border-radius: 8px; /* 角を丸める */
-      background-color: #f9f9f9; /* 背景色を設定 */
-    }
-
-    .input-chara {
-      width: 100%; /* Full width for input on small screens */
-      margin-bottom: 0.5rem; /* Space between input and button on small screens */
-    }
-
-    .btn-fetch {
-      width: 20%; /* Full width for button on small screens */
-    }
-
-
+@media screen and(max-width: 480px) {
+  /* style_one.css */
+  .borderedText {
+    font-family: 'Arial, sans-serif';
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0 0 1.5em 0;
+    padding: 10px;
+    border: 2px solid #1fc03c; /* 枠線を設定 */
+    border-radius: 8px; /* 角を丸める */
+    background-color: #f9f9f9; /* 背景色を設定 */
   }
+
+  .input-chara {
+    width: 100%; /* Full width for input on small screens */
+    margin-bottom: 0.5rem; /* Space between input and button on small screens */
+  }
+
+  .btn-fetch {
+    width: 20%; /* Full width for button on small screens */
+  }
+
+}

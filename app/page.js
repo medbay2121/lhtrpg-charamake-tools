@@ -44,7 +44,7 @@ export default function Home() {
       <div className="w-full text-center place-items-center">
         <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-10">冒険者窓口 チャパレ生成所</h2>
 
-        <div className="flex mb-10">
+        <div className="flex-container">
           <input id="chara_id" type="text" className="input-chara" 
             value={charaId} 
             onChange={(e) => setCharaId(e.target.value)} 

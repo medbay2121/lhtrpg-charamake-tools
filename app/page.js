@@ -45,13 +45,13 @@ export default function Home() {
         <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-10">冒険者窓口 チャパレ生成所</h2>
 
         <div className="flex mb-10">
-          <input id="chara_id" type="text" className="flex-grow rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300" 
+          <input id="chara_id" type="text" className="input-chara" 
             value={charaId} 
             onChange={(e) => setCharaId(e.target.value)} 
             placeholder="キャラクターIDを入力"
           />
           <button 
-            className="ml-2 px-5 py-2 rounded-md text-white bg-green-500 hover:bg-green-600" 
+            className="btn-fetch" 
             onClick={() => fetchCharacterData(charaId, setOutputValue)}>
             データ取得
           </button>

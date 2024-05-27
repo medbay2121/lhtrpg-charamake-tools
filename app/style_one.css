@@ -53,6 +53,13 @@
     background-color: #f9f9f9; /* 背景色を設定 */
   }
 
+  .flex-container {
+    
+    margin-bottom: 2.5rem; /* mb-10 */
+    gap: 0.5rem; /* Space between input and button */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  }
+    
   .input-chara {
     width: 100%; /* Full width for input on small screens */
     margin-bottom: 0.5rem; /* Space between input and button on small screens */

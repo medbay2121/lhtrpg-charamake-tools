@@ -63,10 +63,12 @@
   .input-chara {
     width: 100%; /* Full width for input on small screens */
     margin-bottom: 0.5rem; /* Space between input and button on small screens */
+    margin:  0 auto
   }
 
   .btn-fetch {
     width: 20%; /* Full width for button on small screens */
+    margin:  0 auto
   }
 
 }

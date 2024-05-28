@@ -2,6 +2,7 @@
 import React, { useRef, useState } from 'react';
 import exportFunction from './function.js';
 import './style_one.css';
+import { Helmet } from "react-helmet"
 
 const fetchCharacterData = async (charaId, setOutputValue) => {
   const url = `https://lhrpg.com/lhz/api/${charaId}.json`;
@@ -40,17 +41,24 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="w-full text-center place-items-center">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-10">冒険者窓口 チャパレ生成所</h2>
+    <main>
 
+
+
+      <div className="disp_wide">
+        <h2 className="text_title">冒険者窓口 キャラコマ生成所</h2>
+
+        <div className="flex-container">
+          <input id="chara_id" type="text" className="input-chara" 
         <div className="flex-container">
           <input id="chara_id" type="text" className="input-chara" 
             value={charaId} 
             onChange={(e) => setCharaId(e.target.value)} 
             placeholder="キャラクターIDを入力"
           />
+          <br class="spbr"></br>
           <button 
+            className="btn-fetch" 
             className="btn-fetch" 
             onClick={() => fetchCharacterData(charaId, setOutputValue)}>
             データ取得

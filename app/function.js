@@ -71,7 +71,7 @@ exports.char_data_bake = function(send_data){
                 str_output += "\\n\\n" + "《" + data["skills"][i_num]["name"] + "》[" + data["skills"][i_num]["timing"] + "] [ SR：" + data["skills"][i_num]["skill_rank"] + "/" + data["skills"][i_num]["skill_max_rank"] + " ] [ 射程：" + data["skills"][i_num]["range"] + "] " + data["skills"][i_num]["function"];
 
                 //メジャー技能処理
-                if (data["skills"][i_num]["timing"] == "メジャー") {
+                if (data["skills"][i_num]["timing"] == "メジャー" ) {
 
                     //例外処理
                     if (data["skills"][i_num]["name"] == "シールドスウィング") {
@@ -102,7 +102,7 @@ exports.char_data_bake = function(send_data){
                         // リストで入ってるのでstr型に落とす  ←  ここもカス
                         let test_slice4 = strMatch2[0];
                         // カスコードの残骸。消すとわからなくなるから残せてる
-                        let outputStr = test_slice4;
+                        let output_str = test_slice4;
 
                         // 技能の技能値を反映
                         let a = String(data["skills"][i_num]["skill_rank"]);
@@ -176,7 +176,7 @@ exports.char_data_bake = function(send_data){
                 }
             }
             catch {
-                var a = 1;
+                var an = 1;
             }   
         }
         //console.log(" ◯ 各種判定")

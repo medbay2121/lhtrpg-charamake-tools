@@ -50,15 +50,13 @@ export default function Home() {
 
         <div className="flex-container">
           <input id="chara_id" type="text" className="input-chara" 
-        <div className="flex-container">
-          <input id="chara_id" type="text" className="input-chara" 
+         
             value={charaId} 
             onChange={(e) => setCharaId(e.target.value)} 
             placeholder="キャラクターIDを入力"
           />
           <br class="spbr"></br>
           <button 
-            className="btn-fetch" 
             className="btn-fetch" 
             onClick={() => fetchCharacterData(charaId, setOutputValue)}>
             データ取得

@@ -1,4 +1,32 @@
 /* style_one.css */
+main {
+  display: flex; /* 横並びに */
+  min-height: 100vh; /* 画面の高さいっぱいまで */
+  flex-direction: column; /* 垂直方向に並べる */
+  align-items: center; /* 横方向に中央揃え */
+  justify-content: space-between; /* 上下の余白を等間隔に */
+  padding: 6rem; /* 内側の余白 */
+}
+
+.disp_wide {
+  /*width: 100%; /* 幅を100%に */
+  text-align: center; /* テキストを中央揃え */
+  display: flex; /* Flexboxを使用 */
+  justify-content: center; /* 横方向に中央揃え */
+  align-items: center; /* 縦方向に中央揃え */
+  flex-direction: column; /* 縦方向にアイテムを並べる */
+}
+
+.text_title {
+  font-size: 1.875rem; /* テキストサイズ */
+  font-weight: 700; /* 太字 */
+  letter-spacing: -0.025em; /* 字間 */
+  color: #1f2937; /* テキストの色 */
+  margin-bottom: 2.5rem; /* 下の余白 */
+}
+
+
+
 .borderedText {
     font-family: 'Arial, sans-serif';
     font-size: 18px;
@@ -13,6 +41,7 @@
 
 .flex-container {
     display: flex;
+    width: 100%; /* 幅を100%に */
     margin-bottom: 2.5rem; /* mb-10 */
     gap: 0.5rem; /* Space between input and button */
     flex-wrap: wrap; /* Allow wrapping for smaller screens */
@@ -39,11 +68,32 @@
 
 
   
-@media screen and(max-width: 480px) {
+@media (max-width: 600px) { 
+
+  main {
+    display: flex; /* 横並びに */
+    min-height: 100vh; /* 画面の高さいっぱいまで */
+    flex-direction: column; /* 垂直方向に並べる */
+    align-items: center; /* 横方向に中央揃え */
+    justify-content: space-between; /* 上下の余白を等間隔に */
+    padding: 1rem; /* 内側の余白 */
+  }
+  .text_title {
+    font-size: 1.875rem; /* テキストサイズ */
+    font-weight: 700; /* 太字 */
+    letter-spacing: -0.025em; /* 字間 */
+    color: #1f2937; /* テキストの色 */
+    margin-bottom: 2.5rem; /* 下の余白 */
+    margin-top: 2rem; /* 上の余白 */
+  }
+
+
+
+
   /* style_one.css */
   .borderedText {
     font-family: 'Arial, sans-serif';
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.6;
     color: #333;
     margin: 0 0 1.5em 0;
@@ -55,20 +105,33 @@
 
   .flex-container {
     display: flex;
-    text-align: center;
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column;
     align-items: center; /* Center align items horizontally */
     justify-content: center;
   }
 
+
   .input-chara {
-    width: 100%; /* Full width for input on small screens */
+    width: 80%; /* Full width for input on small screens */
     margin-bottom: 0.5rem; /* Space between input and button on small screens */
     margin:  0 auto
   }
 
   .btn-fetch {
-    width: 20%; /* Full width for button on small screens */
+    width: 45%; /* Full width for button on small screens */
     margin:  0 auto
+    
+  }
+
+}
+
+@media (max-width: 430px) {
+  .text_title {
+    font-size: 1.5rem; /* テキストサイズ */
+    font-weight: 700; /* 太字 */
+    letter-spacing: -0.025em; /* 字間 */
+    color: #1f2937; /* テキストの色 */
+    margin-bottom: 2.5rem; /* 下の余白 */
+    margin-top: 2rem; /* 上の余白 */
   }
 }

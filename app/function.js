@@ -35,7 +35,10 @@ exports.char_data_bake = function(send_data){
             "常時": 0,
             "セットアップ": 0,
             "プリプレイ": 0,
+            "ダメージ適用直前": 0,
+            "ダメージ適用直後": 0,
             "本文": 0,
+            "クリンナップ": 0,
         };
           
           // Initialize variables react, react_val, inv_flag, assult_flag, fixed_dam_val to 0
@@ -54,15 +57,23 @@ exports.char_data_bake = function(send_data){
                     }
                 }
             
-                if (timing_dict[data["skills"][i_num]["timing"]] === 1) {
+                if (timing_dict[data["skills"][i_num]["timing"]] == 1) {
                     //console.log("◯ ", data["skills"][i_num]["timing"]);
                     str_output += "\\n◯ " + String(data["skills"][i_num]["timing"]);
+                }
+                else if (timing_dict[data["skills"][i_num]["timing"]] > 1) {
+                }
+                else{
+                    str_output += "\\n◯ その他";
                 }
             }
 
             catch {
+                
                 //console.log("◯ その他");
                 str_output += "\\n◯ その他";
+                
+                hoge = 1;
             }
 
             // 技能の処理
@@ -106,7 +117,7 @@ exports.char_data_bake = function(send_data){
 
                         // 技能の技能値を反映
                         let a = String(data["skills"][i_num]["skill_rank"]);
-                        let output_new = outputStr.replace("ＳＲ", a);
+                        let output_new = output_str.replace("ＳＲ", a);
                         // 【】を{}に置換（チャパレで動くように）
                         let output_new_one = output_new.replace("【", "{").replace("】", "}");
 
@@ -127,7 +138,7 @@ exports.char_data_bake = function(send_data){
                         if (assult_flag === 1) {
                             let output_new_second = output_new_one + "＋" + fixed_dam_val.toString();
                             //console.log(output_new_second);
-                            str_output += "\\n" + output_new_second;
+                            str_output += "\\n" + output_new_second + " アサルトスタンス適用ダメージ";
                         }
                     }  
                 }

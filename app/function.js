@@ -84,7 +84,7 @@ exports.char_data_bake = function(send_data){
             // 技能の処理
             try {
             //スキル名・技能のタイミング・効果の記述
-                str_output += "\\n\\n" + "《" + data["skills"][i_num]["name"] + "》[" + data["skills"][i_num]["timing"] + "] [ SR：" + data["skills"][i_num]["skill_rank"] + "/" + data["skills"][i_num]["skill_max_rank"] + " ] [ 射程：" + data["skills"][i_num]["range"] + "] [ 対象：" + data["skills"][i_num]["target"] +"] [ 判定：" + data["skills"][i_num]["roll"] +"]"+ "] [ コスト：" + data["skills"][i_num]["cost"] +" ] [ 制限：" + data["skills"][i_num]["limit"] + " ]    " + data["skills"][i_num]["function"];
+                str_output += "\\n\\n" + "《" + data["skills"][i_num]["name"] + "》[" + data["skills"][i_num]["timing"] + "] [ SR：" + data["skills"][i_num]["skill_rank"] + "/" + data["skills"][i_num]["skill_max_rank"] + " ] [ 射程：" + data["skills"][i_num]["range"] + "] [ 対象：" + data["skills"][i_num]["target"] +"] [ 判定：" + data["skills"][i_num]["roll"] + "] [ コスト：" + data["skills"][i_num]["cost"] +" ] [ 制限：" + data["skills"][i_num]["limit"] + " ]    " + data["skills"][i_num]["function"];
 
                 //メジャー技能処理
                 if (data["skills"][i_num]["timing"] == "メジャー" ) {

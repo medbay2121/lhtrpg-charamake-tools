@@ -14,6 +14,11 @@ exports.char_data_bake = function(send_data){
         //console.log(data["abl_hit"] + " ：命中値");
         str_output += data["abl_hit"] + " ： 命中値 \\n";
 
+        str_output += "{攻撃力}+1D" + " ： 基本物理攻撃 \\n";
+        str_output += "{魔力}+1D" + " ： 基本魔法攻撃 \\n";
+
+        str_output += "_____________________________ \\n";
+
         //console.log("2+" + data["abl_avoid"] + " 回避（ヘイトアンダー）");
         str_output += "2+" + data["abl_avoid"] + " 【回避】（ヘイトアンダー） \\n";
 
@@ -79,7 +84,7 @@ exports.char_data_bake = function(send_data){
             // 技能の処理
             try {
             //スキル名・技能のタイミング・効果の記述
-                str_output += "\\n\\n" + "《" + data["skills"][i_num]["name"] + "》[" + data["skills"][i_num]["timing"] + "] [ SR：" + data["skills"][i_num]["skill_rank"] + "/" + data["skills"][i_num]["skill_max_rank"] + " ] [ 射程：" + data["skills"][i_num]["range"] + "] " + data["skills"][i_num]["function"];
+                str_output += "\\n\\n" + "《" + data["skills"][i_num]["name"] + "》[" + data["skills"][i_num]["timing"] + "] [ SR：" + data["skills"][i_num]["skill_rank"] + "/" + data["skills"][i_num]["skill_max_rank"] + " ] [ 射程：" + data["skills"][i_num]["range"] + "] [ 対象：" + data["skills"][i_num]["target"] +"] [ 判定：" + data["skills"][i_num]["roll"] +"]"+ "] [ コスト：" + data["skills"][i_num]["cost"] +" ] [ 制限：" + data["skills"][i_num]["limit"] + " ]    " + data["skills"][i_num]["function"];
 
                 //メジャー技能処理
                 if (data["skills"][i_num]["timing"] == "メジャー" ) {
@@ -190,6 +195,20 @@ exports.char_data_bake = function(send_data){
                 var an = 1;
             }   
         }
+
+        str_output += "_____________________________ \\n";
+
+        str_output += "\\n\\n ◯ 基本行動 \\n";
+        str_output += "敵情を探る  [タイミング：ブリーフィング] [判定：基本（知覚／探知）] 効果：敵情を探り、情報を得る。〔達成値：10〕登場エネミー数を知る 〔達成値：20〕最もランクが低いエネミーの情報を公開〔ファンブル〕敵に気づかれる" + "\\n";
+        str_output += "異常探知  [タイミング：セットアップ] [判定：基本（知覚／探知）] 効果：対象の［隠蔽］状態および［隠密］状態は解除される。" + "\\n";
+        str_output += "エネミー識別  [タイミング：セットアップ] [判定：基本（知識／探知）] 効果：対象は［識別済］状態となる。" + "\\n";
+        str_output += "プロップ解除  [タイミング：セットアップ] [判定：基本（解除／探知）] 効果：［識別済］の［ギミック］を戦闘不能にする" + "\\n";
+        str_output += "プロップ解析  [タイミング：セットアップ] [判定：基本（解析／探知）] 効果：［識別済］のプロップの機能を停止させる" + "\\n";
+        str_output += "かばう  [タイミング：ダメージ適用直前] [射程：至近] 効果：［ダメージ適用ステップ］であなた以外の対象が受ける予定のダメージをかわりに受ける。《かばう》を行なうためには［未行動］でなければならず、また《かばう》を行なうことで即座に［行動済］になる。" + "\\n";
+
+        str_output += "_____________________________ \\n";
+
+
         //console.log(" ◯ 各種判定")
         str_output += "\\n\\n ◯ 各種判定 \\n";
 
@@ -219,7 +238,7 @@ exports.char_data_bake = function(send_data){
 
 
         let string_with_newline = str_output;
-        return `{"kind":"character","data":{"name":"${data.name}","initiative":${(data.action + 0.1)},"externalUrl":"${data.sheet_url}","iconUrl":"","commands":"${string_with_newline}","status":[{"label":"HP","value":${data.max_hitpoint},"max":${data.max_hitpoint}},{"label":"ヘイト","value":0,"max":0},{"label":"疲労","value":0,"max":0},{"label":"因果力","value":${data.effect},"max":0},{"label":"障壁","value":0,"max":0}],"params":[{"label":"STR","value":"${data.str_value}"},{"label":"DEX","value":"${data.dex_value}"},{"label":"POW","value":"${data.pow_value}"},{"label":"INT","value":"${data.int_value}"},{"label":"攻撃力","value":"${data.physical_attack}"},{"label":"魔力","value":"${data.magic_attack}"},{"label":"回復力","value":"${data.heal_power}"},{"label":"物防","value":"${data.physical_defense}"},{"label":"魔防","value":"${data.magic_defense}"},{"label":"行動力","value":"${data.action}"},{"label":"移動力","value":"${data.move}"}]}}`;
+        return `{"kind":"character","data":{"name":"${data.name}","memo":"${data.tags}","initiative":${(data.action + 0.1)},"externalUrl":"${data.sheet_url}","iconUrl":"","commands":"${string_with_newline}","status":[{"label":"HP","value":${data.max_hitpoint},"max":${data.max_hitpoint}},{"label":"ヘイト","value":0,"max":0},{"label":"疲労","value":0,"max":0},{"label":"因果力","value":${data.effect},"max":0},{"label":"障壁","value":0,"max":0}],"params":[{"label":"STR","value":"${data.str_value}"},{"label":"DEX","value":"${data.dex_value}"},{"label":"POW","value":"${data.pow_value}"},{"label":"INT","value":"${data.int_value}"},{"label":"攻撃力","value":"${data.physical_attack}"},{"label":"魔力","value":"${data.magic_attack}"},{"label":"回復力","value":"${data.heal_power}"},{"label":"物防","value":"${data.physical_defense}"},{"label":"魔防","value":"${data.magic_defense}"},{"label":"行動力","value":"${data.action}"},{"label":"移動力","value":"${data.move}"}]}}`;
 
     } catch (error) {
       console.error('Error fetching character data:', error);

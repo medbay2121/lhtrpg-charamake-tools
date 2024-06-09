@@ -12,7 +12,7 @@ exports.char_data_bake = function(send_data){
         str_output += "◯ 戦闘の基本 \\n";
 
         //console.log(data["abl_hit"] + " ：命中値");
-        str_output += data["abl_hit"] + " ： 命中値 \\n";
+        str_output += data["abl_hit"].replace("D","LH") + " ： 命中値 \\n";
 
         str_output += "{攻撃力}+1D" + " ： 基本物理攻撃 \\n";
         str_output += "{魔力}+1D" + " ： 基本魔法攻撃 \\n";
@@ -20,16 +20,16 @@ exports.char_data_bake = function(send_data){
         str_output += "ーーーーーーーーーーーーーーー \\n";
 
         //console.log("2+" + data["abl_avoid"] + " 回避（ヘイトアンダー）");
-        str_output += "2+" + data["abl_avoid"] + " 【回避】（ヘイトアンダー） \\n";
+        str_output += "2+" + data["abl_avoid"].replace("D","LH") + " 【回避】（ヘイトアンダー） \\n";
 
         //console.log("2+" + data["abl_resist"] + " 抵抗（ヘイトアンダー）");
-        str_output += "2+" + data["abl_resist"] + " 【抵抗】（ヘイトアンダー） \\n";
+        str_output += "2+" + data["abl_resist"].replace("D","LH") + " 【抵抗】（ヘイトアンダー） \\n";
 
         //console.log(data["abl_avoid"] + " 回避（ヘイトトップ）");
-        str_output += data["abl_avoid"] + " 【回避】（ヘイトトップ） \\n";
+        str_output += data["abl_avoid"].replace("D","LH") + " 【回避】（ヘイトトップ） \\n";
 
         //console.log(data["abl_resist"] + " 抵抗（ヘイトトップ）");
-        str_output += data["abl_resist"] + " 【抵抗】（ヘイトトップ） \\n";
+        str_output += data["abl_resist"].replace("D","LH") + " 【抵抗】（ヘイトトップ） \\n";
 
 
         let timing_dict = {
@@ -92,12 +92,12 @@ exports.char_data_bake = function(send_data){
                     //例外処理
                     if (data["skills"][i_num]["name"] == "シールドスウィング") {
                         //console.log(data["abl_hit"] + " ：命中値");
-                        str_output += "\\n" + data["abl_hit"] + " ：命中値";
+                        str_output += "\\n" + data["abl_hit"].replace("D","LH") + " ：命中値";
                         //console.log(data["hand1"]["physical_defense"] + "+" + data["skills"][i_num]["skill_rank"] + "D" + " ：《シールドスウィング》ダメージ");
                         str_output += "\\n" + data["hand1"]["physical_defense"] + "+" + data["skills"][i_num]["skill_rank"] + "D" + " ：《シールドスウィング》ダメージ";
                     } else if (data["skills"][i_num]["name"] == "ホーリーシールド") {
                         //console.log(data["abl_hit"] + " ：命中値");
-                        str_output += "\\n" + data["abl_hit"] + " ：命中値";
+                        str_output += "\\n" + data["abl_hit"].replace("D","LH") + " ：命中値";
                         //console.log(data["hand1"]["magic_defense"] + "+" + data["skills"][i_num]["skill_rank"] + "D" + " ：《ホーリーシールド》ダメージ");
                         str_output += "\\n" + data["hand1"]["magic_defense"] + "+" + data["skills"][i_num]["skill_rank"] + "D" + " ：《ホーリーシールド》ダメージ";
                         //str(data["hand1"]["magic_defense"] + "+" + data["skills"][i_num]["skill_rank"] + "D" + " ：ホーリーシールドダメージ");
@@ -129,7 +129,7 @@ exports.char_data_bake = function(send_data){
                         // 攻撃の場合は命中を反映
                         if (data["skills"][i_num]["roll"] !== "判定なし") {
                             // console.log(data["abl_hit"] + " ：命中値");
-                            str_output += "\\n" + data["abl_hit"] + "　：命中値";
+                            str_output += "\\n" + data["abl_hit"].replace("D","LH") + "　：命中値";
                             // console.log(output_new_one + " 《" + data["skills"][i_num]["name"] + "》ダメージ");
                             str_output += "\\n" + output_new_one + "　《" + data["skills"][i_num]["name"] + "》ダメージ";
                         } else {
